@@ -1,3 +1,4 @@
-JSON template
-line 1
-line 2
+<% function hourToDegree(h, m, s) { var d = h * 15 + m / 60 + s / 3600; return isNaN(d) ? "null" : d; } %>
+<% function toDegree(a, m, s) { var d = a + m / 60 + s / 3600; return isNaN(d) ? "null" : d; } %>
+<% function getSpec(s) { return s != undefined ? s.substr(0, 1) : ""; } %>
+[<% var last = _.last(data); %><% _.each(data, function(star) { %>["<%= star.name %>", <%= hourToDegree(star.RAh, star.RAm, star.RAs) %>, <%= toDegree(star.DEd, star.DEm, star.DEs) %>, <%= isNaN(star.VMag) ? "null" : star.VMag %>, "<%= getSpec(star.SPEC) %>"]<%= star == last ? "" : "," %><% }); %>]
