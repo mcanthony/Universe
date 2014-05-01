@@ -15,7 +15,7 @@ printUsage = ->
         console.log "========================================="
         console.log "Dependencies:"
         console.log "\tunderscore"
-        console.log "\tcoffee"
+        console.log "\tcoffee-script"
         console.log "\tasync"
         console.log "Usage:"
         console.log "\tcoffee convert template_file_name output_file_name"

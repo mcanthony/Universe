@@ -7,7 +7,7 @@ This tool requires node.js.
 In the folder of `convert.coffee`
 
 * `npm install` following dependencies:
-  - coffee
+  - coffee-script
   - async
   - underscore
 
