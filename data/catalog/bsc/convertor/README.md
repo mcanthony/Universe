@@ -11,7 +11,7 @@ In the folder of `convert.coffee`
   - async
   - underscore
 
-* Download BSC data files and put `bsc5.dat` and `notes` in this folder
+* [Download](https://github.com/akfish/Universe/tree/master/data/catalog/bsc#file-summary) BSC data files and put `bsc5.dat` and `notes` in this folder
 
 * Write your own underscore template and save it in this folder
 
