@@ -168,12 +168,12 @@ Value | Explanations
 
 #### <a name="file-notes">File: `notes`</a>
 
-Bytes | Format | Units | Label  |   Explanations
-------|--------|-------|--------|---------------------------------------------------
-   1-  4 |  I4 |   --- |   HR   |     [1/9110]= Harvard Revised (HR)
-   5-  6 | I2  |   --- |   Count    | Note counter (sequential for a star)
-   7- 10 | A4  |   --- |   Category |*[A-Z: ] Remark category abbreviation:
-  12-131 | A120|   --- |   Remark   | Remarks in free form text  
+Bytes | Format | Units | Label  | Convertor Field |   Explanations
+------|--------|-------|--------|-----------------|----------------------------------
+   1-  4 |  I4 |   --- |   HR   | `id` |    [1/9110]= Harvard Revised (HR)
+   5-  6 | I2  |   --- |   Count    | | Note counter (sequential for a star)
+   7- 10 | A4  |   --- |   Category | `category` |*[A-Z: ] Remark category abbreviation:
+  12-131 | A120|   --- |   Remark   | `remark` |Remarks in free form text  
 
 ##### Note
 ######Category
