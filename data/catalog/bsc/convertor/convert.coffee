@@ -151,7 +151,7 @@ async.auto
                         logBeforeNext("Template file loaded...", next)
                 
         main: (next) ->
-                # TODO: parse main catalogue
+                # Parse main catalogue
                 loadAndParse main_path,
                         parseMainData,
                         logBeforeNext("Main catalogue loaded...", next)
