@@ -20,7 +20,7 @@ In the folder of `convert.coffee`
 Just:
 
 ```shell
-coffee convert template\_file\_name output\_file\_name
+coffee convert template_file_name output_file_name
 ```
 
 ## Writing Templates
@@ -29,7 +29,7 @@ You should learn to write underscore template first.
 
 A single variable named `data` is passed to the template. It's an array of all star entries.
 
-Entry format:
+## Star Entry format
 
 ```javascript
 {
@@ -39,7 +39,9 @@ Entry format:
 }
 ```
 
-Note Format:
+[Complete Field Reference](https://github.com/akfish/Universe/tree/master/data/catalog/bsc#file-catalog)
+
+## Note Format
 
 ```javascript
 {
@@ -49,3 +51,4 @@ Note Format:
 }
 ```
 
+[Complete Field Reference](https://github.com/akfish/Universe/tree/master/data/catalog/bsc#file-notes)
