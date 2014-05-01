@@ -30,3 +30,5 @@ _ReSharper*/
 *.gz
 *.dat
 *~
+*node_modules*
+data/catalog/bsc/convertor/notes
