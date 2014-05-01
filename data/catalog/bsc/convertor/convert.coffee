@@ -51,6 +51,10 @@ console.log "Template #{temp_path} exists...#{temp_exists}"
 if not temp_exists
         console.error "Error: could not find template file '#{temp_path}'"
 
+# Save path
+save_path = "./#{process.argv[3]}"
+# TODO: validate path
+
 # Helper
 # worker = (line) -> return obj
 # callback = (err, data) ->
@@ -87,16 +91,50 @@ logBeforeNext = (msg, next) ->
                 next? null, results
 
 t = (line, start, length) ->
-        line.substr 		start, length
+        x = line.substr  	start, length
+        x.trim()
 i = (line, start, length) ->
         parseInt 	t line, start, length
 f = (line, start, length) ->
         parseFloat 	t line, start, length
+b = (line, pos, true_value) ->
+        flag = t line, pos, 1
+        flag == true_value
         
 parseMainData = (line) ->
-        id: 	i line, 0, 	4
-        mag: 	i line, 102, 	4
-        RAh: 	f line, 75, 	2
+        id: 		i line, 0, 	4
+        name:		t line, 4,	10
+        DM:  		t line, 14,  	11
+        HD:  		i line, 25,  	6
+        SAO:  		i line, 31,  	6
+        FK5:  		i line, 37,  	4
+        IS_IR:  	b line, 41,  	'I'
+        IR_REF: 	t line, 42,	1
+        MULT:		t line, 43,	1
+        ADS:		t line, 44,	5
+        ADScomp:	t line, 49, 	2
+        VAR:		t line, 51,	9
+        # Note: we will use J2000.0 only
+        RAh:  		i line, 75, 	2
+        RAm:  		i line, 77,  	2
+        RAs:  		f line, 79,  	4
+        DEd:  		i line, 83,  	3
+        DEm:  		i line, 86,  	2
+        DEs:  		i line, 88,  	2
+        GLON: 		f line, 90, 	6
+        GLAT: 		f line, 96, 	6
+        VMag: 		f line, 102, 	5
+        SPEC:  		t line, 127,  	20
+        pmRA:  		f line, 148,  	6
+        pmDE:  		f line, 152,  	6
+        parallax:	f line, 161,	5
+        RadVel:		i line, 166,	4
+        RotVel:		i line, 176,	3
+        DMag:		f line, 180,	4
+        Sep:		f line, 184,	6
+        MultiID:	t line, 190,	4
+        MultiCount:	i line, 194,	2
+        HAS_NOTE:	b line, 196,	'*'
         
 parseNoteData = (line) ->
         id: 		i line, 1, 4
@@ -127,8 +165,8 @@ async.auto
         assemble: ['main', 'note', (next, data) ->
                 # Assemble main catalogue and notes
                 # Sort main data
-
                 asm = _.reduce data.main, ((arr, item) ->
+                        #console.log item
                         arr[item.id] = item
                         return arr), []
                 # Insert notes
@@ -142,12 +180,13 @@ async.auto
                 console.log "Data assembled..."
                 ]
         generate: ['template', 'assemble', (next, data) ->
-                # TODO: generate
-                next? null, true
-                console.log "Generated..."
+                # Generate with underscore template
+                compiled = _.template data.template, data: data.assemble
+                fs.writeFile save_path, compiled, logBeforeNext "File generated..."
                 ]
         , (err, results) ->
                 if err?
                         console.error "Error: #{err}"
                         process.exit 1
-                console.log results.assemble
+
+
