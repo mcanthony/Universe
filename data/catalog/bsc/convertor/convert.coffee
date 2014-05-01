@@ -86,11 +86,23 @@ logBeforeNext = (msg, next) ->
                 console.log msg
                 next? null, results
 
+t = (line, start, length) ->
+        line.substr 		start, length
+i = (line, start, length) ->
+        parseInt 	t line, start, length
+f = (line, start, length) ->
+        parseFloat 	t line, start, length
+        
 parseMainData = (line) ->
-        id: parseInt line.substr 0, 4
-
+        id: 	i line, 0, 	4
+        mag: 	i line, 102, 	4
+        RAh: 	f line, 75, 	2
+        
 parseNoteData = (line) ->
-        id: parseInt line.substr 0, 5
+        id: 		i line, 1, 4
+        category:	t line, 7, 4
+        remark:		t line, 12
+
                         
 # Convert work flow
 async.auto
@@ -107,13 +119,13 @@ async.auto
                         logBeforeNext("Main catalogue loaded...", next)
 
         note: (next) ->
-                # TODO: parse note catalogue
+                # Parse notes
                 loadAndParse note_path,
                         parseNoteData,
                         logBeforeNext("Note loaded...", next)
                 
         assemble: ['main', 'note', (next, data) ->
-                # TODO: assemble main catalogue and notes
+                # Assemble main catalogue and notes
                 # Sort main data
 
                 asm = _.reduce data.main, ((arr, item) ->
